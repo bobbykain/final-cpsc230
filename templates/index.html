@@ -1,0 +1,29 @@
+<title>Todo List</title>
+<h1>Final - Todo List</h1>
+
+<form action="/add" method="post">
+  <input type="input" name="task"> <br>
+  <input type="submit" value="Add Task">
+</form>
+
+<b>{{num_active}}</b> Active task(s) <br>
+<b>{{num_inactive}}</b> Completed task(s) <br>
+
+<h2>Tasks</h2>
+<form action="/complete" method="post">
+    <!-- <p> {{ active_list[0] }} </p> -->
+    {% for task in active_list %}
+    <input type="radio" name="task" value={{task}}> {{task}} <br>
+    {% endfor %}
+    <input type="submit" value="Complete Task">
+</form>
+
+{% for task in inactive_list %}
+* <i> {{task}} </i> <br>
+{% endfor %}
+<form action="/clear" method="post">
+  <input type="submit" value="Clear Completed">
+</form>
+
+<h2>Stats</h2>
+<img src="/pie.png">
