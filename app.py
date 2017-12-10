@@ -1,3 +1,7 @@
+# https://damp-ocean-52941.herokuapp.com/
+# heroku app is buggy/slow not sure why
+# running locally works great though!
+
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
@@ -18,15 +22,19 @@ def index():
 @app.route("/add", methods=['POST'])
 def add():
     new_task = request.form['task']
+    if not new_task:
+        return redirect('/')
     active_list.append(new_task)
     return redirect('/')
 
 @app.route("/complete", methods=['POST'])
 def complete():
-    to_complete = request.form['task']
-    if to_complete in active_list:
-        active_list.remove(to_complete)
-    inactive_list.append(to_complete)
+    if 'task' in request.form:
+        to_complete = request.form['task']
+        if to_complete in active_list:
+            active_list.remove(to_complete)
+        inactive_list.append(to_complete)
+        return redirect('/')
     return redirect('/')
 
 @app.route("/clear", methods=['POST'])
